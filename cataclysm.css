@@ -1,0 +1,92 @@
+body {
+  font-family:Courier;
+}
+
+div#instructions {
+  background-color: #eee;
+  width: 973px;
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  height: 50px;
+  font-size: 1em;
+  opacity: 0;
+}
+
+div#instructions > div {
+  margin-left: 7px;
+  margin-top: 7px;
+}
+
+div#main_pane {
+
+}
+
+div#info_pane {
+  height: 50px;
+  width: 1024px;
+  border: 1px solid black;
+  background-color: white;
+  border-bottom: none;
+}
+
+div#left-info-pane {
+  font-size: 1.5em;
+  height: 50px;
+  font-weight: bold;
+  width: 500px;
+  float: left;
+}
+div#left-info-pane > div {
+  margin-top:12px;
+}
+
+div#instructions-pane {
+  float: right;
+  border-left: 1px solid black;
+  height: 50px;
+  width: 50px;
+}
+img#instructions_toggler {
+  cursor:hand;
+  cursor: pointer;
+  margin-top:5px;
+  margin-left:5px;
+}
+
+div#score-pane {
+  width:140px;
+  height:50px;
+  float:right;
+  border-left: 1px solid black;
+}
+
+div#score-pane > table {
+  margin-top:2px;
+  width:100%;
+}
+div#score-pane > span#num_correct,
+div#score-pane > span#num_incorrect {
+  font-weight: bold;
+}
+
+div#challenge-response-pane {
+  width: 330px;
+  height: 50px;
+  float: right;
+  border-left: 1px solid black;
+}
+
+div#challenge-response-pane > table {
+  margin-top: 2px
+}
+
+#challenge {
+  font-weight:bold;
+  color:grey;
+}
+
+#response {
+  font-weight:bold;
+  color:grey;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cataclysm</title>
+  <link rel='stylesheet' href='/dynamic-flashcards-cataclysm/cataclysm.css'>
+	<script src='/dynamic-flashcards-cataclysm/d3.v7.js'></script>
+  <script src='/dynamic-flashcards-cataclysm/cataclysm.js'></script>
+</head>
+
+<body>
+
+	<div id='instructions'>
+
+		<div>Use the 'f' and 'j' keys to change your target (spacebar also works left to right). Then press Enter to choose the selected target. Once you've chosen a target, type in the answer and press Enter.</div>
+	</div>
+
+	<div id='main_pane' align='left'>
+
+		<div id='info_pane'>
+
+			<div id='left-info-pane'>
+				<div align='center'>Stop the cataclysm!</div>
+			</div>
+
+			<div id='instructions-pane'>
+				<img title='View instructions' id='instructions_toggler' width='40px' height='40px' src='/dynamic-flashcards-cataclysm/controller.png' />
+			</div>
+
+			<div id='score-pane'>
+				<table align='center'>
+					<tr><td align='right'>correct:</td><td><span id='num_correct'>0</span></td></tr>
+					<tr><td align='right'>incorrect:</td><td><span id='num_incorrect'>0</span></td></tr>
+				</table>
+			</div>
+
+			<div id='challenge-response-pane'>
+				<table align='center'>
+					<tr>
+						<td align='right'>challenge:</td>
+						<td width='100px'>
+							<div id='challenge'></div>
+						</td>
+					</tr>
+					<tr>
+						<td align='right'>response:</td>
+						<td width='100px'>
+							<div id='response'></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
