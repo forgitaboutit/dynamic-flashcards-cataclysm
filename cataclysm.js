@@ -57,7 +57,9 @@ window.onload = function() {
     }
   });
 
+  // array of building objects
   for(let ctr = 0; ctr < building_data.length; ctr++) {
+
     building_rgb_val = 112 + Math.floor(1 + (1 + 12 - 1) * Math.random()) * 8;
     building_fill = "rgb(" + building_rgb_val + "," + building_rgb_val + "," + building_rgb_val + ")"; 
 
@@ -70,6 +72,7 @@ window.onload = function() {
     building_data[ctr].y = pane_height - building_data[ctr].height;
   }
 
+  // main window
   d3.select("#main_pane")
     .append("svg:svg")
       .attr("width", 1024)
@@ -95,6 +98,7 @@ window.onload = function() {
             .duration(building_fade_in_duration)
             .style('opacity', '1');
 
+  // building transitions
   d3.select('#svg_main').selectAll('rect')
     .transition()
       .duration(building_translation_duration)
@@ -114,11 +118,15 @@ window.onload = function() {
         .attr('stroke-width', '5')
         .style('opacity', '0')
         .on('click', function() {
-        console.log(this.id);
+
           if(blocker === false) {
+
             blocker = true;
+
             let index = parseInt(this.id.charAt(this.id.length - 1));
+
             if(index === selected_bomb_index && chosen_bomb_index === null) {
+
               chosen_bomb_index = selected_bomb_index;
               document.getElementById('challenge').innerHTML = exercise_data[chosen_bomb_index].challenge;
               document.getElementById('challenge').style.color = 'green';
@@ -127,7 +135,9 @@ window.onload = function() {
               entering_text = true;
               d3.select('#bomb_' + selected_bomb_index)
                 .attr('stroke', bomb_border_color_chosen);
-            } else if(index !== selected_bomb_index) {
+            }
+            else if(index !== selected_bomb_index) {
+
               d3.select('#bomb_' + selected_bomb_index)
                 .attr('stroke', bomb_border_color_not_selected);
               selected_bomb_index = index;	
@@ -147,7 +157,7 @@ window.onload = function() {
   ctr0 = 0;
   ctr1 = 0;
 
-  // labels
+  // bomb labels
   d3.select('#svg_main').selectAll('text').data(exercise_data)
       .enter()
         .append('svg:text')
@@ -160,7 +170,10 @@ window.onload = function() {
           .attr('x', function(d) { return ctr1++ * 100 + ((100 - d.challenge.length * 10) / 2); })
           .attr('y', function(d) { return -d.challenge.length * 10; } );
 
+  // Fade in bombs
   setTimeout("fadeInBombs()", building_fade_in_duration + building_translation_duration);
+
+  // Drop bombs
   setTimeout("dropBombs()", building_fade_in_duration + building_translation_duration);
 
   document.onkeypress = respondToKey;
@@ -200,15 +213,18 @@ function dropBombs() {
     .attr('y', pane_height);
 }
 
-function respondToKey(e)
-{
-  if(blocker === false)
-  {
+function respondToKey(e) {
+
+  if(blocker === false) {
+
     blocker = true;
 
     if(entering_text === false) {
+
       current_input_text = '';
+
       if(e.charCode === 13) { // enter key
+
         chosen_bomb_index = selected_bomb_index;
         document.getElementById('challenge').innerHTML = exercise_data[chosen_bomb_index].challenge;
         document.getElementById('challenge').style.color = 'green';
@@ -217,38 +233,26 @@ function respondToKey(e)
         d3.select('#bomb_' + selected_bomb_index)
           .attr('stroke', bomb_border_color_chosen);
         entering_text = true;
-      } else if(e.charCode === 106) { // j
+      }
+      else if(e.charCode === 106) { // j
+
         d3.select('#bomb_' + selected_bomb_index)
           .attr('stroke', bomb_border_color_not_selected);
         newSelection('backward');
-      } else if(e.charCode === 102 || e.charCode === 32) { // f or spacebar
+      }
+      else if(e.charCode === 102 || e.charCode === 32) { // f or spacebar
+
         d3.select('#bomb_' + selected_bomb_index)
           .attr('stroke', bomb_border_color_not_selected);
         newSelection('forward');
       }
-      /*
-        // Targeting by digit makes sense if targets have visible numbers attached to them
-      else if(e.charCode >= 48 && e.charCode <= 57) { // digit
-        let index = e.charCode - 48;
-        if(index === selected_bomb_index && chosen_bomb_index === null) {
-          chosen_bomb_index = selected_bomb_index;
-          entering_text = true;
-          d3.select('#bomb_' + selected_bomb_index)
-            .attr('stroke', bomb_border_color_chosen);
-        } else if(index !== selected_bomb_index) {
-          d3.select('#bomb_' + selected_bomb_index)
-            .attr('stroke', bomb_border_color_not_selected);
-          selected_bomb_index = index;	
-          chosen_bomb_index = index;
-          entering_text = true;
-          d3.select('#bomb_' + selected_bomb_index)
-            .attr('stroke', bomb_border_color_chosen);
-        }
-      }
-      */
-    } else if (entering_text === true) {
+    }
+    else if (entering_text === true) {
+
       if(e.charCode === 13) {
+
         if(current_input_text === exercise_data[selected_bomb_index].response) {
+
           d3.select('#bomb_' + selected_bomb_index)
             .transition()
             .duration(500)
@@ -261,7 +265,9 @@ function respondToKey(e)
           entering_text = false;
           num_correct++;
           document.getElementById('num_correct').innerHTML = num_correct;
-        } else {
+        }
+        else {
+
           entering_text = false;
           d3.select('#bomb_' + selected_bomb_index).attr('stroke', bomb_border_color_selected);
           num_incorrect++;
@@ -271,10 +277,10 @@ function respondToKey(e)
         document.getElementById('challenge').style.color = 'grey';
         document.getElementById('response').innerHTML = '';
         document.getElementById('response').style.color = 'grey';
+
         current_input_text = '';
       }
-      else
-      {
+      else {
         current_input_text += String.fromCharCode(e.charCode);
         document.getElementById('response').innerHTML = current_input_text.length > 7 ? current_input_text.slice(0, 7) + '...' : current_input_text;
       }
@@ -283,8 +289,8 @@ function respondToKey(e)
   }
 }
 
-function newSelection(direction)
-{
+function newSelection(direction) {
+
   let new_selection = false;
 
   while(!new_selection) {
@@ -295,6 +301,7 @@ function newSelection(direction)
       case 'forward':
         if(++selected_bomb_index > exercise_data.length - 1) { selected_bomb_index = 0; } break;
     }
+
     if(d3.select('#bomb_' + selected_bomb_index).style('opacity') === '1') {
       d3.select('#bomb_' + selected_bomb_index).attr('stroke', bomb_border_color_selected);
       new_selection = true;
